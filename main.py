@@ -37,9 +37,11 @@ class AI_Brain_Tumar_Dataset(nn.Module):
         self.model = nn.Sequential(
             nn.Conv2d(in_channels=32, out_channels=18),
             nn.ReLU(),
+            nn.MaxPool2d(2, 2),
             nn.Dropout(0.2),
             nn.Conv2d(in_channels=18, out_channels=6),
             nn.ReLU(),
+            nn.MaxPool2d(2, 2),
             nn.Dropout(0.2),
             nn.Conv2d(in_channels=6, out_channels=1),
         )
@@ -47,6 +49,18 @@ class AI_Brain_Tumar_Dataset(nn.Module):
     def forward(self, X):
         self.model(X)
 
-torch.manual_seed(42)
-model12 = AI_Brain_Tumar_Dataset()
 
+torch.manual_seed(42)
+model14 = AI_Brain_Tumar_Dataset()
+
+### Setting Up Loss_fn and Optimizer
+
+loss_fn = nn.BCELoss()
+
+optimizer = torch.optim.Adam(params=model14.parameters, lr=0.1)
+
+epochs = 200
+
+for epoch in range(200):
+    model14.train()
+    
