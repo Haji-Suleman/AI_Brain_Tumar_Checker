@@ -3,6 +3,7 @@ from torchvision import datasets, transforms
 from torch.utils.data import DataLoader
 from sklearn.model_selection import train_test_split
 import torch
+from torch import nn
 
 # from sklearn.preprocessing import StandardScaler
 
@@ -29,3 +30,12 @@ device = "cuda" if torch.cuda.is_available() else "cpu"
 
 print(device)
 
+
+class AI_Brain_Tumar_Dataset(nn.Module):
+    def __init__(self):
+        super().__init__()
+        self.model = nn.Sequential(
+            nn.Linear(in_features=32,out_features=42),
+            nn.ReLU(),
+            
+        )
