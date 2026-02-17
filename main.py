@@ -35,7 +35,18 @@ class AI_Brain_Tumar_Dataset(nn.Module):
     def __init__(self):
         super().__init__()
         self.model = nn.Sequential(
-            nn.Linear(in_features=32,out_features=42),
+            nn.Conv2d(in_channels=32, out_channels=18),
             nn.ReLU(),
-            
+            nn.Dropout(0.2),
+            nn.Conv2d(in_channels=18, out_channels=6),
+            nn.ReLU(),
+            nn.Dropout(0.2),
+            nn.Conv2d(in_channels=6, out_channels=1),
         )
+
+    def forward(self, X):
+        self.model(X)
+
+torch.manual_seed(42)
+model12 = AI_Brain_Tumar_Dataset()
+
