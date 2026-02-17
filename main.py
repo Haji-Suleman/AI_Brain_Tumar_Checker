@@ -1,7 +1,10 @@
 from torchvision import datasets, transforms
 
 from torch.utils.data import DataLoader
+from sklearn.model_selection import train_test_split
+import torch
 
+# from sklearn.preprocessing import StandardScaler
 
 transform = transforms.Compose([transforms.Resize((224, 224)), transforms.ToTensor()])
 
@@ -9,5 +12,20 @@ dataset = datasets.ImageFolder(root="./brain_tumor_dataset", transform=transform
 
 loader = DataLoader(dataset, batch_size=32, shuffle=True)
 
+for images, labels in loader:
+    print(images.shape)
+    print(labels)
+    break
+# scaler = StandardScaler()
+# images = scaler.fit(images)
 
-    
+images = torch.tensor(images)
+labels = torch.tensor(labels)
+X_train, X_test, y_train, y_test = train_test_split(
+    images, labels, test_size=0.2, random_state=42
+)
+
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
+print(device)
+
